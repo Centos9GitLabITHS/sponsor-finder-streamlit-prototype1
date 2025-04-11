@@ -1,10 +1,10 @@
-# Data Cleaning and Preprocessing Module# src/data_cleaner/preprocessor.py
-import pandas as pd  # Data manipulation
-import numpy as np  # Numerical operations
+# src/data_cleaner/preprocessor.py
+import pandas as pd  # Data manipulation library for handling dataframes
+import numpy as np  # Numerical computing library for advanced operations
 
-class JobPostingPreprocessor:  # Preprocesses job postings data
-    @staticmethod  # Static method to clean data
-    def clean_data(df):  # 
+class JobPostingPreprocessor:  # Class to preprocess job postings data
+    @staticmethod  # Method that can be called without creating an instance
+    def clean_data(df):  # Method to clean raw job postings data
         """
         Basic data cleaning steps
         
@@ -14,19 +14,19 @@ class JobPostingPreprocessor:  # Preprocesses job postings data
         Returns:
             pandas.DataFrame: Cleaned dataframe
         """
-        # Remove duplicates
+        # Remove duplicate entries to ensure data uniqueness
         df.drop_duplicates(inplace=True)
         
-        # Handle missing values
+        # Remove rows with missing job title or description
         df.dropna(subset=['title', 'description'], inplace=True)
         
-        # Convert date columns
+        # Convert posting date to standard datetime format
         df['posting_date'] = pd.to_datetime(df['posting_date'])
         
         return df  # Return the cleaned dataframe
     
-    @staticmethod  # Static method to extract features
-    def extract_features(df):  # Extract features from the cleaned dataframe
+    @staticmethod  # Static method for feature extraction
+    def extract_features(df):  # Method to create additional features from job postings
         """
         Feature extraction for competence trend analysis
         
